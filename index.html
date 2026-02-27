@@ -216,21 +216,15 @@
   </div>
 
   <script>
-    // =============================================
-    // רשימת הברקודים התקינים - ניתן לערוך כאן
-    // =============================================
-    const VALID_BARCODES = [
-      "123456789012",
-      "5901234123457",
-      "7290000000001",
-      "PRODUCT-001",
-      "PRODUCT-002",
-      "PRODUCT-003",
-    ];
-    // =============================================
-
+    let VALID_BARCODES = [];
     let scanner = null;
     let scanning = false;
+
+    // טעינת הרשימה מהקובץ החיצוני
+    fetch("barcodes.json")
+      .then(res => res.json())
+      .then(data => { VALID_BARCODES = data; })
+      .catch(() => console.error("שגיאה בטעינת רשימת הברקודים"));
 
     function startScanner() {
       if (scanning) return;
